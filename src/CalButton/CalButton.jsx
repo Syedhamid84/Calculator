@@ -1,78 +1,60 @@
 import React from "react";
 import { useState } from "react";
+import ButtonNumbers from "./ButtonValues";
 const Callbutton = () => {
-  const [InputValues, setInputValues] = useState()
+  const [InputValues, setInputValues] = useState("");
 
-  const state = {
-    displayvalue: "",
-  };
-
-  const HandleInput = (value) =>{
-    
+  const HandleInput = (value) => {
     console.log("input values", value);
-    setInputValues(value);
-    console.log("hello world")
+    setInputValues((prevInputValue) => prevInputValue + value);
 
+    console.log("hello world");
+  };
+  const HandleClear = ()=>{
+    setInputValues("");
+  }
+  const EvaluateExpression =()=>{
+    try{
+      const result = eval(InputValues);
+      setInputValues(result.toString());
+    }
+    catch{
+      setInputValues("Error");
+    }
   }
   return (
     <>
       <div className="flex justify-center items-center flex-col h-[100vh] bg-yellow-300">
         {/* <div className="w-64 h-12 bg-pink-100"> </div> */}
-        <input 
-        className="w-64 h-12 bg-pink-100"
-        type="text"
-        value={InputValues}
+        <input
+          className="w-64 h-12 bg-pink-100"
+          type="text"
+          value={InputValues}
+          readOnly
         />
+
         <div className="grid grid-cols-4 gap-4 gap-x-4 bg-green-300 p-2">
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF] "
-          // onChange={setInputValues}
-          onClick={()=>HandleInput(7)}
-          >7</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(8)}>
-            8</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(9)}>
-            9</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput("+")}>
-            +</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(4)}>
-            4</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(5)}>
-            5</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(6)}>
-            6</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput("-")}>
-            -</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(1)}>
-            1</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(2)}>
-            2</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(3)}>
-            3</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput("*")}>
-            *</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput()}>
-            C</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput(0)}>
-            0</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput("=")}>
-            =</button>
-          <button className=" w-12 h-12 bg-black text-[#FFFFFF]" 
-          onClick={()=>HandleInput("/")}>
-            /</button>
+          {ButtonNumbers.map((value, index) => (
+            <button
+              key={index}
+              className=" w-12 h-12 bg-black text-[#FFFFFF]"
+              // onClick={()=>HandleInput(value)}
+                        onClick={() => {
+                if (typeof value === "number" || value === ".") {
+                  HandleInput(value.toString());
+                } else if (value === "C") {
+                  HandleClear();
+                } else {
+                  HandleInput(` ${value} `);
+                }
+                if(value === "="){
+                  EvaluateExpression();
+                }
+              }}
+            >
+              {value}
+            </button>
+          ))}
         </div>
       </div>
     </>
