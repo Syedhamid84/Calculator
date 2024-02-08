@@ -7,25 +7,21 @@ const Callbutton = () => {
   const HandleInput = (value) => {
     console.log("input values", value);
     setInputValues((prevInputValue) => prevInputValue + value);
-
-    console.log("hello world");
   };
-  const HandleClear = ()=>{
+  const HandleClear = () => {
     setInputValues("");
-  }
-  const EvaluateExpression =()=>{
-    try{
+  };
+  const EvaluateExpression = () => {
+    try {
       const result = eval(InputValues);
       setInputValues(result.toString());
-    }
-    catch{
+    } catch {
       setInputValues("Error");
     }
-  }
+  };
   return (
     <>
       <div className="flex justify-center items-center flex-col h-[100vh] bg-yellow-300">
-        {/* <div className="w-64 h-12 bg-pink-100"> </div> */}
         <input
           className="w-64 h-12 bg-pink-100"
           type="text"
@@ -38,8 +34,7 @@ const Callbutton = () => {
             <button
               key={index}
               className=" w-12 h-12 bg-black text-[#FFFFFF]"
-              // onClick={()=>HandleInput(value)}
-                        onClick={() => {
+              onClick={() => {
                 if (typeof value === "number" || value === ".") {
                   HandleInput(value.toString());
                 } else if (value === "C") {
@@ -47,7 +42,7 @@ const Callbutton = () => {
                 } else {
                   HandleInput(` ${value} `);
                 }
-                if(value === "="){
+                if (value === "=") {
                   EvaluateExpression();
                 }
               }}
