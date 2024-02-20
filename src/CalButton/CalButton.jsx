@@ -24,17 +24,17 @@ const Callbutton = () => {
     <>
       <div
         style={{ backgroundImage: `url(${CalculatorBackground})` }}
-        className="flex justify-center items-center max-w-screen h-[100vh] bg-cover ">
+        className="flex justify-center items-center h-[100vh] bg-cover ">
 
-        <div className="w-72 flex justify-center items-center h-[400px] gap-4 flex-col bg-[#b37e39] rounded-lg  ">
+        <div className=" flex justify-center items-center gap-6 flex-col bg-[#b37e39] rounded-lg p-8 ">
           <input
-            className="w-64 h-16 bg-pink-100 px-4 py-6 text-right rounded-md"
+            className="w-full bg-pink-100 px-4 py-6 text-right rounded-md"
             type="text"
             value={InputValues}
             readOnly
           />
 
-          <div className="grid grid-cols-4 gap-4  bg-[#838578] px-4 py-6 rounded-md max-w-64">
+          <div className="grid grid-cols-4 gap-4  bg-[#838578] px-4 py-6 rounded-md w-full">
             {ButtonNumbers.map((value, index) => (
               <button
                 key={index}
